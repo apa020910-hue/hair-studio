@@ -1,0 +1,93 @@
+@import "tailwindcss";
+
+@theme {
+  /* Palette: Baltic pine, mist and amber. */
+  --color-fog: #eef1ef;
+  --color-paper: #f8faf8;
+  --color-pine: #0f2e2b;
+  --color-abyss: #0a2321;
+  --color-spruce: #1b4b45;
+  --color-lagoon: #2f6f66;
+  --color-honey: #e5a63c;
+  --color-honey-hi: #f0ba5c;
+  --color-line: #cbd5d0;
+  --color-ink: #14201e;
+  --color-muted: #55645f;
+
+  --font-sans: "Onest Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Tenor Sans", "Onest Variable", ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    background-color: var(--color-fog);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    text-wrap: balance;
+  }
+
+  ::selection {
+    background-color: var(--color-honey);
+    color: var(--color-pine);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-lagoon);
+    outline-offset: 3px;
+  }
+
+  .on-dark :focus-visible {
+    outline-color: var(--color-honey);
+  }
+}
+
+@layer utilities {
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* The one orchestrated motion on the page: hero strands draw in once. */
+@keyframes strand-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.strand {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: strand-draw 2.6s cubic-bezier(0.45, 0.05, 0.25, 1) forwards;
+  animation-delay: calc(var(--i) * 40ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .strand {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+}
